@@ -1,14 +1,16 @@
 {
-  "name": "gophergfx-app-template",
+  "name": "lecture-22",
   "version": "1.0.0",
-  "description": "GopherGfx App Template, CSCI 4611, Spring 2024",
+  "description": "Lecture 22, CSCI 4611, Spring 2024",
   "author": "Evan Suma Rosenberg <suma@umn.edu>",
   "license": "CC BY-NC-SA 4.0",
   "type": "module",
   "devDependencies": {
     "@gltf-transform/core": "^3.10.0",
+    "@types/dat.gui": "^0.7.12",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
+    "dat.gui": "^0.7.9",
     "esbuild-plugin-glsl": "^1.1.0",
     "eslint": "^8.23.0",
     "gophergfx": "github:illusioneering/GopherGfx",
@@ -19,7 +21,7 @@
   "scripts": {
     "dev": "vite",
     "start": "vite",
-    "build": "vite build && javascript-obfuscator ./dist/index.js --output ./dist/index.js --simplify false",
+    "build": "vite build && javascript-obfuscator ./dist/index.js --output ./dist/index.js --simplify false --string-array true --split-strings true --split-strings-chunk-length 5 --string-array-threshold 1",
     "preview": "vite preview"
   }
 }
