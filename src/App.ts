@@ -30,7 +30,7 @@ export class App extends gfx.GfxApp
 
         this.cameraControls = new gfx.OrbitControls(this.camera);
 
-        this.renderStyle = 'Phong';
+        this.renderStyle = 'Wave';
         this.model = 'bunny.obj';
         
         this.models = [];
@@ -124,6 +124,7 @@ export class App extends gfx.GfxApp
         this.waveMaterial.diffuseColor.set(1, 1, 1);
         this.waveMaterial.specularColor.set(1, 1, 1);
         this.waveMaterial.shininess = 50;
+        this.waveMaterial.waveScale = 25;
 
         this.models[0].visible = true;
         this.changeRenderStyle();
@@ -135,6 +136,8 @@ export class App extends gfx.GfxApp
     {
         // Update the camera controller
         this.cameraControls.update(deltaTime);
+
+        this.waveMaterial.waveAngle += Math.PI * deltaTime;
     }
 
 

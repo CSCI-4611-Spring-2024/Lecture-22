@@ -24,6 +24,9 @@ export class WaveMaterial extends gfx.Material3
     public specularColor: gfx.Color;
     public shininess: number;
 
+    public waveScale: number;
+    public waveAngle: number;
+
     public static shader = new gfx.ShaderProgram(vertexShader, fragmentShader);
 
     private kAmbientUniform: WebGLUniformLocation | null;
@@ -52,6 +55,9 @@ export class WaveMaterial extends gfx.Material3
     private colorAttribute: number;
     private texCoordAttribute: number;
 
+    private waveScaleUniform: WebGLUniformLocation | null;
+    private waveAngleUniform: WebGLUniformLocation | null;
+
     constructor()
     {
         super();
@@ -61,6 +67,9 @@ export class WaveMaterial extends gfx.Material3
         this.diffuseColor = new gfx.Color(1, 1, 1);
         this.specularColor = new gfx.Color(0, 0, 0);
         this.shininess = 30;
+        
+        this.waveAngle = 0;
+        this.waveScale = 1;
 
         WaveMaterial.shader.initialize(this.gl);
 
@@ -89,6 +98,9 @@ export class WaveMaterial extends gfx.Material3
         this.normalAttribute = WaveMaterial.shader.getAttribute(this.gl, 'normal');
         this.colorAttribute = WaveMaterial.shader.getAttribute(this.gl, 'color');
         this.texCoordAttribute = WaveMaterial.shader.getAttribute(this.gl, 'texCoord');   
+    
+        this.waveAngleUniform = WaveMaterial.shader.getUniform(this.gl, 'waveAngle');
+        this.waveScaleUniform = WaveMaterial.shader.getUniform(this.gl, 'waveScale');
     }
 
     draw(mesh: gfx.Mesh3, camera: gfx.Camera, lightManager: gfx.LightManager): void
@@ -124,6 +136,10 @@ export class WaveMaterial extends gfx.Material3
         this.gl.uniform3fv(this.ambientIntensitiesUniform, lightManager.ambientIntensities);
         this.gl.uniform3fv(this.diffuseIntensitiesUniform, lightManager.diffuseIntensities);
         this.gl.uniform3fv(this.specularIntensitiesUniform, lightManager.specularIntensities);
+
+        // Set the animation uniforms
+        this.gl.uniform1f(this.waveAngleUniform, this.waveAngle);
+        this.gl.uniform1f(this.waveScaleUniform, this.waveScale);
 
         // Set the vertex positions
         this.gl.enableVertexAttribArray(this.positionAttribute);

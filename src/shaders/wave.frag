@@ -34,6 +34,10 @@ uniform float shininess;
 uniform int useTexture;
 uniform sampler2D textureImage;
 
+// animation data
+uniform float waveAngle;
+uniform float waveScale;
+
 // data passed in from the vertex shader
 in vec3 vertPositionWorld;
 in vec3 vertNormalWorld;
@@ -62,9 +66,11 @@ void main()
         else
             l = normalize(lightPositionsWorld[i]); 
 
+        float waveFactor = cos(vertPositionWorld.y * waveScale + waveAngle) * 0.5 + 0.5;
+
         // Diffuse component
         float diffuseComponent = max(dot(n, l), 0.0);
-        illumination += diffuseComponent * kDiffuse * diffuseIntensities[i];
+        illumination += waveFactor * diffuseComponent * kDiffuse * diffuseIntensities[i];
 
         // Compute the vector from the vertex to the eye
         vec3 e = normalize(eyePositionWorld - vertPositionWorld);
