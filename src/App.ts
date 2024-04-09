@@ -151,42 +151,26 @@ export class App extends gfx.GfxApp
         if(this.model == 'bunny.obj')
         {
             this.models[0].visible = true;
-            this.setMaterialSide(gfx.Side.FRONT);
         }
         else if(this.model == 'cow.obj')
         {
             this.models[1].visible = true;
-            this.setMaterialSide(gfx.Side.FRONT);
         }
         else if(this.model == 'cube.obj')
         {
             this.models[2].visible = true;
-            this.setMaterialSide(gfx.Side.FRONT);
         }
         else if(this.model == 'head.obj')
         {
             this.models[3].visible = true;
-            this.setMaterialSide(gfx.Side.FRONT);
         }
         else if(this.model == 'hippo.obj')
         {
             this.models[4].visible = true;
-            this.setMaterialSide(gfx.Side.FRONT);
         }
         else if(this.model == 'sphere.obj')
         {
             this.models[5].visible = true;
-            this.setMaterialSide(gfx.Side.FRONT);
         }
-        else if(this.model == 'teapot.obj')
-        {
-            this.models[6].visible = true;
-            this.setMaterialSide(gfx.Side.DOUBLE);
-        }
-    }
-
-    private setMaterialSide(side: gfx.Side): void
-    {
-        this.phongMaterial.side = side;
     }
 }

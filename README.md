@@ -35,6 +35,10 @@ Your program should open in a web browser automatically.  If not, you can run it
 - [GopherGfx Documentation](https://illusioneering.github.io/GopherGfx/)
 - [TypeScript Documentation](https://www.typescriptlang.org/docs/)
 
+## Acknowledgments
+
+The dynamic shaders were partially inspired by examples from [webgl-shaders.com](https://webgl-shaders.com/).
+
 ## License
 
 Material for [CSCI 4611 Spring 2024](https://github.com/CSCI-4611-Spring-2024/Syllabus) by [Evan Suma Rosenberg](https://illusioneering.umn.edu/) is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
