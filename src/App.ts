@@ -9,6 +9,7 @@ import { GUI } from 'dat.gui'
 
 import { MyPhongMaterial } from './MyPhongMaterial';
 import { WaveMaterial } from './WaveMaterial';
+import { DeformMaterial } from './DeformMaterial';
 
 export class App extends gfx.GfxApp
 {
@@ -19,6 +20,7 @@ export class App extends gfx.GfxApp
     private models: gfx.Mesh3[];
     private phongMaterial: MyPhongMaterial;
     private waveMaterial: WaveMaterial;
+    private deformMaterial: DeformMaterial;
     private pointLight: gfx.PointLight;
 
     // --- Create the App class ---
@@ -30,12 +32,13 @@ export class App extends gfx.GfxApp
 
         this.cameraControls = new gfx.OrbitControls(this.camera);
 
-        this.renderStyle = 'Wave';
+        this.renderStyle = 'Deform';
         this.model = 'bunny.obj';
         
         this.models = [];
         this.phongMaterial = new MyPhongMaterial();
         this.waveMaterial = new WaveMaterial();
+        this.deformMaterial = new DeformMaterial();
         this.pointLight = new gfx.PointLight(gfx.Color.WHITE);
 
         this.createGUI();
@@ -53,7 +56,8 @@ export class App extends gfx.GfxApp
 
         const renderStyleController = renderControls.add(this, 'renderStyle', [
             'Phong', 
-            'Wave'
+            'Wave',
+            'Deform'
         ]);
         renderStyleController.name('');
         renderStyleController.onChange(()=>{this.changeRenderStyle()});
@@ -126,6 +130,12 @@ export class App extends gfx.GfxApp
         this.waveMaterial.shininess = 50;
         this.waveMaterial.waveScale = 25;
 
+        this.deformMaterial.ambientColor.set(0, 0, 0);
+        this.deformMaterial.diffuseColor.set(1, 1, 1);
+        this.deformMaterial.specularColor.set(1, 1, 1);
+        this.deformMaterial.shininess = 50;
+        this.deformMaterial.waveScale = 0.02;
+
         this.models[0].visible = true;
         this.changeRenderStyle();
     }
@@ -138,6 +148,7 @@ export class App extends gfx.GfxApp
         this.cameraControls.update(deltaTime);
 
         this.waveMaterial.waveAngle += Math.PI * deltaTime;
+        this.deformMaterial.waveAngle += Math.PI * deltaTime;
     }
 
 
@@ -153,6 +164,12 @@ export class App extends gfx.GfxApp
        {
             this.models.forEach((model: gfx.Mesh3) => {
                 model.material = this.waveMaterial;
+            });
+       }
+       else if(this.renderStyle == 'Deform')
+       {
+            this.models.forEach((model: gfx.Mesh3) => {
+                model.material = this.deformMaterial;
             });
        }
     }
